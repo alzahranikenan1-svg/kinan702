@@ -1,4 +1,451 @@
-.zig-cache/
-zig-out/
-zig-pkg/
-*.o
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090d18">
+<title>Kinan702 | حساباتي</title>
+<style>
+:root {
+  --bg:#090d18;--panel:#111827;--panel2:#182235;
+  --text:#f5f7ff;--muted:#9aa9c1;--line:#28364c;
+  --accent:#6c7dff;--accent2:#20d9cc;--danger:#ff647c;
+}
+body.light {
+  --bg:#f2f5fb;--panel:#ffffff;--panel2:#e9eef8;
+  --text:#182136;--muted:#66748a;--line:#d9e1ef;
+  --accent:#4b5ee8;--accent2:#078d88;--danger:#d83755;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+transition:background .2s,color .2s;min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;background:var(--bg);
+border-bottom:1px solid var(--line);padding:13px 5%;
+display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font-size:21px;font-weight:900;letter-spacing:.4px}
+.brand span{color:var(--accent2)}
+.actions{display:flex;gap:8px}
+.iconbtn,.btn{border:1px solid var(--line);border-radius:12px;
+background:var(--panel);color:var(--text);padding:10px 13px}
+.btn.primary{background:var(--accent);color:white;border-color:var(--accent)}
+.btn.danger{color:var(--danger)}
+button:active{transform:scale(.98)}
+main{max-width:1000px;margin:auto;padding:25px 16px 60px}
+.hero{padding:35px 22px;border:1px solid var(--line);border-radius:24px;
+background:linear-gradient(135deg,var(--panel),var(--panel2));
+position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:160px;height:160px;
+border-radius:50%;background:var(--accent);opacity:.1;
+left:-45px;top:-45px;filter:blur(15px)}
+.eyebrow{color:var(--accent2);font-size:12px;font-weight:800;
+letter-spacing:2px}
+h1{font-size:clamp(30px,7vw,49px);line-height:1.2;margin:12px 0}
+p{line-height:1.8}
+.muted{color:var(--muted)}
+.hero p{max-width:540px}
+nav{display:flex;gap:8px;overflow:auto;padding:18px 0}
+nav button{white-space:nowrap;border:1px solid var(--line);
+border-radius:12px;background:var(--panel);color:var(--text);padding:11px 15px}
+nav button.active{background:var(--accent);color:#fff}
+.section{display:none}
+.section.active{display:block}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;
+gap:10px;flex-wrap:wrap;margin:15px 0}
+h2{font-size:23px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.card{background:var(--panel);border:1px solid var(--line);
+border-radius:17px;padding:17px;min-width:0}
+.card h3{margin:0 0 8px;overflow-wrap:anywhere}
+.card p{margin:5px 0;overflow-wrap:anywhere}
+.card .btn{margin-top:12px}
+.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}
+.field label{font-size:13px;color:var(--muted)}
+.field input,.field textarea,.field select,input,textarea{
+width:100%;background:var(--bg);color:var(--text);
+border:1px solid var(--line);border-radius:11px;padding:12px;outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:75px}
+.row{display:flex;gap:9px;flex-wrap:wrap}
+.row>*{flex:1}
+.code{font-size:24px;font-weight:900;letter-spacing:2px;
+color:var(--accent2);direction:ltr;text-align:center;overflow-wrap:anywhere}
+.notice{padding:12px;border:1px solid var(--line);border-radius:12px;
+color:var(--muted);font-size:13px;line-height:1.8}
+.chatbox{height:300px;overflow:auto;border:1px solid var(--line);
+border-radius:14px;padding:12px;background:var(--bg);margin:12px 0}
+.message{background:var(--panel2);padding:10px 12px;border-radius:12px;
+margin:8px 0;overflow-wrap:anywhere}
+.message time{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+footer{text-align:center;border-top:1px solid var(--line);
+padding:25px;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+background:var(--panel2);border:1px solid var(--line);padding:12px 18px;
+border-radius:12px;z-index:30;display:none;max-width:90%;text-align:center}
+@media(max-width:450px){
+header{padding:11px 12px}.brand{font-size:18px}
+.iconbtn{padding:9px}main{padding:18px 12px 40px}
+.hero{padding:25px 17px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">KINAN<span>702</span></div>
+  <div class="actions">
+    <button class="iconbtn" id="chatNav" aria-label="الدردشة">◈</button>
+    <button class="iconbtn" id="themeBtn" aria-label="تغيير المظهر">☼</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">YOUR DIGITAL SPACE</div>
+    <h1>حساباتك،<br>في مكان واحد.</h1>
+    <p class="muted">مساحتك الرقمية لعرض حساباتك وروابطك والتواصل برموز الدردشة.</p>
+    <button class="btn primary" onclick="showSection('apps')">استعرض الحسابات ←</button>
+  </section>
+
+  <nav>
+    <button class="active" data-section="home">الرئيسية</button>
+    <button data-section="apps">حساباتي</button>
+    <button data-section="chat">الدردشة</button>
+    <button data-section="settings">الإعدادات</button>
+    <button data-section="admin">الإدارة</button>
+  </nav>
+
+  <section id="home" class="section active">
+    <div class="sectionhead"><h2>مساحتك الرقمية</h2></div>
+    <div class="grid">
+      <div class="card"><h3>روابطك</h3><p class="muted">اجمع حساباتك في مكان واحد.</p>
+        <button class="btn" onclick="showSection('apps')">فتح الحسابات</button></div>
+      <div class="card"><h3>رمز الدردشة</h3><p class="muted">رمز محلي لهذا المتصفح.</p>
+        <div class="code" id="homeCode">------</div>
+        <button class="btn" onclick="copyCode()">نسخ الرمز</button></div>
+      <div class="card"><h3>التخصيص</h3><p class="muted">اختر المظهر الذي يناسبك.</p>
+        <button class="btn" onclick="toggleTheme()">تغيير المظهر</button></div>
+    </div>
+  </section>
+
+  <section id="apps" class="section">
+    <div class="sectionhead">
+      <h2>حساباتي وتطبيقاتي</h2>
+      <button class="btn primary" onclick="openAppForm()">+ إضافة حساب</button>
+    </div>
+    <div id="appForm" class="card hidden">
+      <h3 id="formTitle">إضافة حساب جديد</h3>
+      <div class="field"><label>اسم التطبيق أو المنصة</label>
+        <input id="appName" placeholder="مثال: Roblox"></div>
+      <div class="field"><label>اسم المستخدم أو المعرّف</label>
+        <input id="appUser" placeholder="اسم حسابك"></div>
+      <div class="field"><label>رابط الحساب (اختياري)</label>
+        <input id="appUrl" type="url" placeholder="https://example.com/profile"></div>
+      <div class="row">
+        <button class="btn primary" onclick="saveApp()">حفظ</button>
+        <button class="btn" onclick="closeAppForm()">إلغاء</button>
+      </div>
+    </div>
+    <div id="appList" class="grid" style="margin-top:15px"></div>
+    <p id="emptyApps" class="notice">لم تضف حسابات بعد. اضغط «إضافة حساب» للبدء.</p>
+  </section>
+
+  <section id="chat" class="section">
+    <div class="sectionhead"><h2>الدردشة</h2></div>
+    <div class="card">
+      <div class="field"><label>رمزك المحلي</label>
+        <div class="code" id="myCode">------</div>
+        <button class="btn" onclick="copyCode()">نسخ الرمز</button>
+      </div>
+      <div class="notice">لمحادثة مستخدم آخر، يحتاج الطرفان إلى خدمة خلفية مشتركة. هذه النسخة تحفظ الرسائل على هذا الجهاز فقط ولا ترسلها إلى الآخرين.</div>
+      <div class="field"><label>رمز المستخدم الآخر</label>
+        <input id="otherCode" placeholder="أدخل رمز المستخدم"></div>
+      <button class="btn primary" onclick="openLocalChat()">فتح المحادثة المحلية</button>
+      <h3 id="chatTitle" style="margin-top:22px">المحادثة</h3>
+      <div id="chatMessages" class="chatbox" aria-live="polite"></div>
+      <form id="chatForm">
+        <div class="row">
+          <input id="messageInput" maxlength="1000" placeholder="اكتب رسالتك..." required>
+          <button class="btn primary" type="submit">إرسال</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="settings" class="section">
+    <div class="sectionhead"><h2>الإعدادات</h2></div>
+    <div class="card">
+      <h3>المظهر</h3>
+      <p class="muted">غيّر ألوان الموقع.</p>
+      <div class="row">
+        <button class="btn" onclick="setTheme('dark')">الوضع الليلي</button>
+        <button class="btn" onclick="setTheme('light')">الوضع الأبيض</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3>بيانات هذا المتصفح</h3>
+      <p class="muted">الحسابات والرسائل في هذه النسخة تحفظ محليًا على جهازك.</p>
+      <button class="btn danger" onclick="clearLocalData()">مسح بيانات الموقع المحلية</button>
+    </div>
+  </section>
+
+  <section id="admin" class="section">
+    <div class="sectionhead"><h2>إدارة الموقع</h2></div>
+    <div class="card">
+      <h3>إدارة الحسابات المحلية</h3>
+      <p class="muted">يمكنك إدارة بيانات الحسابات المحفوظة في هذا المتصفح.</p>
+      <p id="adminCount"></p>
+      <button class="btn" onclick="showSection('apps')">إدارة حساباتي</button>
+    </div>
+    <div class="notice" style="margin-top:12px">
+      هذه ليست لوحة أدمن محمية. لا توجد صلاحيات خادم أو تسجيل دخول حقيقي في نسخة الملف الواحد. لا تستخدمها لإدارة بيانات مستخدمين آخرين.
+    </div>
+  </section>
+</main>
+
+<footer>KINAN702 · مساحة رقمية شخصية</footer>
+<div id="toast" role="status"></div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const STORAGE = {
+  theme: "k702_theme",
+  apps: "k702_apps",
+  code: "k702_code",
+  messages: "k702_messages"
+};
+let editingId = null;
+let activeChat = null;
+
+function read(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value === null ? fallback : JSON.parse(value);
+  } catch { return fallback; }
+}
+function write(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch {
+    toast("تعذر الحفظ. تحقق من مساحة التخزين.");
+    return false;
+  }
+}
+function toast(message) {
+  $("toast").textContent = message;
+  $("toast").style.display = "block";
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => $("toast").style.display = "none", 2500);
+}
+function newCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let result = "";
+  for (let i = 0; i < 8; i++)
+    result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
+let myCode = localStorage.getItem(STORAGE.code);
+if (!myCode) {
+  myCode = newCode();
+  localStorage.setItem(STORAGE.code, myCode);
+}
+$("myCode").textContent = myCode;
+$("homeCode").textContent = myCode;
+
+function copyCode() {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(myCode)
+      .then(() => toast("تم نسخ الرمز"))
+      .catch(() => toast("رمزك: " + myCode));
+  } else toast("رمزك: " + myCode);
+}
+
+function setTheme(theme) {
+  document.body.classList.toggle("light", theme === "light");
+  localStorage.setItem(STORAGE.theme, theme);
+  $("themeBtn").textContent = theme === "light" ? "☾" : "☼";
+}
+function toggleTheme() {
+  setTheme(document.body.classList.contains("light") ? "dark" : "light");
+}
+$("themeBtn").addEventListener("click", toggleTheme);
+setTheme(localStorage.getItem(STORAGE.theme) || "dark");
+
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(s =>
+    s.classList.toggle("active", s.id === id));
+  document.querySelectorAll("nav button").forEach(b =>
+    b.classList.toggle("active", b.dataset.section === id));
+  if (id === "apps") renderApps();
+  if (id === "admin") updateAdmin();
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+document.querySelectorAll("nav button").forEach(button =>
+  button.addEventListener("click", () => showSection(button.dataset.section)));
+$("chatNav").addEventListener("click", () => showSection("chat"));
+
+function getApps() {
+  const data = read(STORAGE.apps, []);
+  return Array.isArray(data) ? data : [];
+}
+function openAppForm(id = null) {
+  editingId = id;
+  $("appForm").classList.remove("hidden");
+  $("formTitle").textContent = id ? "تعديل الحساب" : "إضافة حساب جديد";
+  const app = getApps().find(a => a.id === id);
+  $("appName").value = app?.name || "";
+  $("appUser").value = app?.user || "";
+  $("appUrl").value = app?.url || "";
+  $("appName").focus();
+}
+function closeAppForm() {
+  editingId = null;
+  $("appForm").classList.add("hidden");
+  $("appName").value = "";
+  $("appUser").value = "";
+  $("appUrl").value = "";
+}
+function safeUrl(value) {
+  if (!value.trim()) return "";
+  try {
+    const url = new URL(value);
+    return ["https:", "http:"].includes(url.protocol) ? url.href : null;
+  } catch { return null; }
+}
+function saveApp() {
+  const name = $("appName").value.trim();
+  const user = $("appUser").value.trim();
+  const rawUrl = $("appUrl").value.trim();
+  const url = safeUrl(rawUrl);
+  if (!name || !user) return toast("أدخل اسم التطبيق ومعرّف الحساب.");
+  if (url === null) return toast("أدخل رابطًا صحيحًا يبدأ بـ https://");
+  const apps = getApps();
+  if (editingId) {
+    const index = apps.findIndex(a => a.id === editingId);
+    if (index < 0) return toast("لم يتم العثور على الحساب.");
+    apps[index] = {...apps[index], name, user, url};
+  } else {
+    apps.push({id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()), name, user, url});
+  }
+  if (write(STORAGE.apps, apps)) {
+    closeAppForm();
+    renderApps();
+    toast("تم حفظ الحساب على جهازك");
+  }
+}
+function deleteApp(id) {
+  if (!confirm("هل تريد حذف هذا الحساب؟")) return;
+  write(STORAGE.apps, getApps().filter(a => a.id !== id));
+  renderApps();
+  updateAdmin();
+}
+function renderApps() {
+  const apps = getApps();
+  $("appList").replaceChildren();
+  $("emptyApps").classList.toggle("hidden", apps.length > 0);
+  apps.forEach(app => {
+    const card = document.createElement("article");
+    card.className = "card";
+    const title = document.createElement("h3");
+    title.textContent = app.name;
+    const user = document.createElement("p");
+    user.textContent = "المعرّف: " + app.user;
+    card.append(title, user);
+    if (app.url) {
+      const link = document.createElement("a");
+      link.href = app.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "فتح الملف الشخصي ↗";
+      link.style.color = "var(--accent2)";
+      card.append(link);
+    }
+    const controls = document.createElement("div");
+    controls.className = "row";
+    const edit = document.createElement("button");
+    edit.className = "btn";
+    edit.textContent = "تعديل";
+    edit.addEventListener("click", () => openAppForm(app.id));
+    const del = document.createElement("button");
+    del.className = "btn danger";
+    del.textContent = "حذف";
+    del.addEventListener("click", () => deleteApp(app.id));
+    controls.append(edit, del);
+    card.append(controls);
+    $("appList").append(card);
+  });
+  updateAdmin();
+}
+function updateAdmin() {
+  $("adminCount").textContent = "عدد الحسابات المحفوظة محليًا: " + getApps().length;
+}
+
+function getMessages() {
+  const messages = read(STORAGE.messages, {});
+  return messages && typeof messages === "object" ? messages : {};
+}
+function openLocalChat() {
+  const code = $("otherCode").value.trim().toUpperCase();
+  if (!/^[A-Z0-9]{8}$/.test(code)) {
+    return toast("أدخل رمزًا من 8 أحرف أو أرقام.");
+  }
+  if (code === myCode) return toast("هذا رمزك أنت.");
+  activeChat = code;
+  $("chatTitle").textContent = "محادثة محلية مع " + code;
+  renderMessages();
+  toast("هذه محادثة محلية وليست متصلة بالمستخدم الآخر.");
+}
+function renderMessages() {
+  const messages = getMessages()[activeChat] || [];
+  $("chatMessages").replaceChildren();
+  if (!messages.length) {
+    const note = document.createElement("p");
+    note.className = "muted";
+    note.textContent = "لا توجد رسائل محفوظة على هذا الجهاز.";
+    $("chatMessages").append(note);
+  }
+  messages.forEach(message => {
+    const item = document.createElement("div");
+    item.className = "message";
+    const body = document.createElement("div");
+    body.textContent = message.text;
+    const time = document.createElement("time");
+    time.textContent = message.sender + " · " + new Date(message.time).toLocaleString("ar");
+    item.append(body, time);
+    $("chatMessages").append(item);
+  });
+  $("chatMessages").scrollTop = $("chatMessages").scrollHeight;
+}
+$("chatForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const text = $("messageInput").value.trim();
+  if (!activeChat) return toast("أدخل رمز المستخدم وافتح المحادثة أولًا.");
+  if (!text) return;
+  const all = getMessages();
+  all[activeChat] ||= [];
+  all[activeChat].push({sender: myCode, text, time: Date.now()});
+  if (write(STORAGE.messages, all)) {
+    $("messageInput").value = "";
+    renderMessages();
+  }
+});
+
+function clearLocalData() {
+  if (!confirm("سيتم حذف الحسابات والرسائل والمظهر المحفوظة محليًا. هل أنت متأكد؟")) return;
+  [STORAGE.apps, STORAGE.messages, STORAGE.theme].forEach(key => localStorage.removeItem(key));
+  setTheme("dark");
+  renderApps();
+  renderMessages();
+  toast("تم مسح البيانات المحلية");
+}
+
+renderApps();
+</script>
+</body>
+</html>
+
